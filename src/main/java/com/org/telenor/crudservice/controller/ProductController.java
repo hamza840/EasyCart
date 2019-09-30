@@ -23,6 +23,10 @@ public class ProductController {
     ProductMapper productMapper;
 
 
+    @GetMapping("/")
+    public  String msg(){
+        return "Hello from Product Controller";
+    }
     @GetMapping("/getAllProducts")
     public ArrayList<Product> getAllProducts(){
 
