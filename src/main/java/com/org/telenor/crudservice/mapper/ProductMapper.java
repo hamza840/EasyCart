@@ -15,9 +15,23 @@ import java.util.ArrayList;
 
 @Mapper
 public interface ProductMapper {
-    @Select("select id as id, name as productName, category_id as categoryId, img_src as imageSource, price as price, description as description from product")
+    //get all products list
+    @Select("select id as id,    name as productName, category_id as categoryId, img_src as imageSource, price as price, description as description from product")
     ArrayList<Product> getAll();
-    
+
+    // get product with id
+    @Select("select id as id,    name as productName, category_id as categoryId, img_src as imageSource, price as price, description as description from product where id=#{id}")
+    public Product getProductWithId(String id);
+
+    // get product with category_id
+    @Select("select id as id,    name as productName, category_id as categoryId, img_src as imageSource, price as price, description as description from product where category_id=#{category_id}")
+    public Product getProductWithCatId(String category_id);
+
+    //search
+    @Select("select id as id,    name as productName, category_id as categoryId, img_src as imageSource, price as price, description as description from product where name like '%' #{query} '%' ")
+    public ArrayList<Product> searchProduct(String query);
+
+
     @Insert("insert into product (name,category_id,img_src,price,description) "+
             "values(#{productName},#{categoryId},#{imageSource},#{price},#{description})")
     public int insert(Product product);

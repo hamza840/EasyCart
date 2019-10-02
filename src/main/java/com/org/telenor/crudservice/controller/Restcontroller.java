@@ -16,10 +16,6 @@ public class Restcontroller {
 
     private String instance;
 
-    @GetMapping("/")
-    public String message(){
-        return "Hello from ";
-    }
 
     @RequestMapping("/msg1")
     public String print(){

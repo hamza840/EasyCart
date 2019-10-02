@@ -39,7 +39,7 @@ public class ProductController {
      * @return will return the object to the mapper for inserting product in database
      */
     @RequestMapping(value = "/insertProduct",method = RequestMethod.POST)
-    public int insertProduct(@RequestBody Product product){
+        public int insertProduct(@RequestBody Product product){
         return productMapper.insert(product);
     }
 
@@ -61,6 +61,21 @@ public class ProductController {
     @RequestMapping(value = "/deleteProduct",method = RequestMethod.DELETE)
     public int delete(@RequestBody Product product){
         return productMapper.delete(product);
+    }
+
+    @RequestMapping(value = "/getProductWithId",method = RequestMethod.GET)
+    public Product getWithId(@RequestParam("id") String id){
+        return productMapper.getProductWithId(id);
+    }
+
+    @RequestMapping(value = "/getProductWithCatId",method = RequestMethod.GET)
+    public Product getWithCatId(@RequestParam("cat_id") String category_id){
+        return productMapper.getProductWithCatId(category_id);
+    }
+
+    @RequestMapping(value = "/searchProduct",method = RequestMethod.GET)
+    public ArrayList<Product> searchProduct(@RequestParam("query") String query){
+        return productMapper.searchProduct(query);
     }
 
 //    @GetMapping("/insert")
