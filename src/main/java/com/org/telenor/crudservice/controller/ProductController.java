@@ -1,13 +1,8 @@
 package com.org.telenor.crudservice.controller;
 
 
-import com.org.telenor.crudservice.mapper.CrudMapper;
 import com.org.telenor.crudservice.mapper.ProductMapper;
-import com.org.telenor.crudservice.model.Employee;
 import com.org.telenor.crudservice.model.Product;
-import org.apache.ibatis.annotations.Param;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -63,24 +58,35 @@ public class ProductController {
         return productMapper.delete(product);
     }
 
+    /**
+     *
+     * @param id will be used to find the product with particular id
+     * @return
+     */
     @RequestMapping(value = "/getProductWithId",method = RequestMethod.GET)
     public Product getWithId(@RequestParam("id") String id){
         return productMapper.getProductWithId(id);
     }
 
+    /**
+     *
+     * @param category_id will be used to find products with particular category id
+     * @return
+     */
     @RequestMapping(value = "/getProductWithCatId",method = RequestMethod.GET)
-    public Product getWithCatId(@RequestParam("cat_id") String category_id){
+    public ArrayList<Product> getWithCatId(@RequestParam("cat_id") String category_id){
         return productMapper.getProductWithCatId(category_id);
     }
 
+    /**
+     *
+     * @param query will be used to search product matching with their name
+     * @return
+     */
     @RequestMapping(value = "/searchProduct",method = RequestMethod.GET)
     public ArrayList<Product> searchProduct(@RequestParam("query") String query){
         return productMapper.searchProduct(query);
     }
 
-//    @GetMapping("/insert")
-//    public int insert(){
-//
-//        return crudMapper.insert()
-//    }
+
 }
