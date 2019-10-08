@@ -86,4 +86,10 @@ Run the project through the IDE and head out to http://localhost:8080
 - Update Product (send data in request body): http://localhost:8087/updateProduct
 - Delete Product (send data in request body): http://localhost:8087/deleteProduct
 - Search Product (send data in request params): http://localhost:8087searchProduct?query=iphone
-- Get Products of particular category (send data in request params): http://localhost:8087getProductWithCatId?cat_id=2
+- Get Products of particular category (send data in request params): http://localhost:8087/getProductWithCatId?cat_id=2
+- insert comment of a particular product (send data in request body):http://localhost:8087/insertcomment
+- insert ratting of a particular product (send data in request body): http://localhost:8087/insertratting
+- get comments of a product (send data in request body): http://localhost:8087/getproductcomment?p_id=3
+- get rattings of a product (send data in request body): http://localhost:8087/getproductratting?p_id=3
+- get list of parent categories: http://localhost:8087/getcategories
+- get list of child categories: http://localhost:8087/getsubcategories
