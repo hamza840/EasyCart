@@ -2,7 +2,9 @@ package com.org.telenor.crudservice.controller;
 
 
 import com.org.telenor.crudservice.mapper.ProductMapper;
+import com.org.telenor.crudservice.model.Comment;
 import com.org.telenor.crudservice.model.Product;
+import com.org.telenor.crudservice.model.Ratting;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -25,6 +27,7 @@ public class ProductController {
     @GetMapping("/getAllProducts")
     public ArrayList<Product> getAllProducts(){
 
+
         return productMapper.getAll();
     }
 
@@ -36,6 +39,26 @@ public class ProductController {
     @RequestMapping(value = "/insertProduct",method = RequestMethod.POST)
         public int insertProduct(@RequestBody Product product){
         return productMapper.insert(product);
+    }
+
+    /**
+     *
+     * @param comment will take the values from the request body
+     * @return will return the object to the mapper for inserting comment in database
+     */
+    @RequestMapping(value = "/insertcomment",method = RequestMethod.POST)
+    public int insertComment(@RequestBody Comment comment){
+        return productMapper.insertComment(comment);
+    }
+
+    /**
+     *
+     * @param ratting will take the values from the request body
+     * @return will return the object to the mapper for inserting rating of product in database
+     */
+    @RequestMapping(value = "/insertratting",method = RequestMethod.POST)
+    public int insertComment(@RequestBody Ratting ratting){
+        return productMapper.insertRatting(ratting);
     }
 
     /**
@@ -70,12 +93,32 @@ public class ProductController {
 
     /**
      *
-     * @param category_id will be used to find products with particular category id
+     * @param p_id will be used to find the product comment with particular product id
+     * @return
+     */
+    @RequestMapping(value = "/getproductcomment",method = RequestMethod.GET)
+    public ArrayList<Comment> getComments(@RequestParam("p_id") String p_id){
+        return productMapper.getComments(p_id);
+    }
+
+    /**
+     *
+     * @param p_id will be used to find the product rattings with particular product id
+     * @return
+     */
+    @RequestMapping(value = "/getproductratting",method = RequestMethod.GET)
+    public ArrayList<Ratting> getRattings(@RequestParam("p_id") String p_id){
+        return productMapper.getRatting(p_id);
+    }
+
+    /**
+     *
+     * @param type_id will be used to find products with particular category id
      * @return
      */
     @RequestMapping(value = "/getProductWithCatId",method = RequestMethod.GET)
-    public ArrayList<Product> getWithCatId(@RequestParam("cat_id") String category_id){
-        return productMapper.getProductWithCatId(category_id);
+    public ArrayList<Product> getWithCatId(@RequestParam("type_id") String type_id){
+        return productMapper.getProductWithCatId(type_id);
     }
 
     /**
@@ -86,6 +129,24 @@ public class ProductController {
     @RequestMapping(value = "/searchProduct",method = RequestMethod.GET)
     public ArrayList<Product> searchProduct(@RequestParam("query") String query){
         return productMapper.searchProduct(query);
+    }
+
+    /**
+     *
+     * @return will return list of main categories
+     */
+    @RequestMapping(value = "/getcategories",method = RequestMethod.GET)
+    public ArrayList<Product> getCategories(){
+        return productMapper.getCategories();
+    }
+
+    /**
+     * will return list of child categories
+     * @return
+     */
+    @RequestMapping(value = "/getsubcategories",method = RequestMethod.GET)
+    public ArrayList<Product> getSubCategories(){
+        return productMapper.getSubCategories();
     }
 
 
