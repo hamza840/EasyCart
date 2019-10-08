@@ -13,6 +13,7 @@ Run the following from the command line:
 git clone https://github.com/hamza840/EasyCart.git
 
 ```
+
 ## What's inside
 
 This project is based on the Spring Boot project and uses these packages :
@@ -27,6 +28,13 @@ This project is based on the Spring Boot project and uses these packages :
 ## Installation
 
 The project is created with Maven, so you just need to import it to your IDE and build the project to resolve the dependencies
+
+## Import Database Schema
+
+1. open http://localhost/phpmyadmin/
+2. Databases -> Create Database -> Set name 'easycart' -> Create
+3. Choose newly created 'easycart' database in left pane
+4. Import -> File to import -> Choose file 'easycart.sql' -> Click Go
 
 ## Eureka Client
 
