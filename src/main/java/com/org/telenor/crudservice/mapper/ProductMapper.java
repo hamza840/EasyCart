@@ -17,16 +17,20 @@ import java.util.ArrayList;
 @Mapper
 public interface ProductMapper {
     //get all products list
-    @Select("select id as id,    product_name as productName, parent_id as parentId, type_id as typeId, icon_id as iconId, promotion_id as promotionId, total_products as totalProducts, in_stock_products as inStockProducts, price as price, description as description from product where type_id=1")
+    @Select("SELECT product.id as id, product.product_name as productName, product.parent_id as parentId, p.product_name as parentName, product.description as description, product.type_id as typeId, type.type_name as typeName, product.icon_id as iconId, icon.small as iconSmall, icon.medium as iconMedium, icon.large as iconLarge, icon.xlarge as iconXLarge, icon.xxlarge as iconXXLarge, product.promotion_id as promotionId, promotion.promotion_name as promotionName, product.total_products as totalProducts, product.in_stock_products as inStockProducts, product.price as price FROM product LEFT JOIN product as p ON product.parent_id=p.id INNER JOIN type ON product.type_id=type.id LEFT JOIN icon ON product.icon_id=icon.id LEFT JOIN promotion ON product.promotion_id =promotion.id WHERE product.type_id=1")
     ArrayList<Product> getAll();
+
+    //get Detailed Product
+    @Select("SELECT product.id as id, product.product_name as productName, product.parent_id as parentId, p.product_name as parentName, product.description as description, product.type_id as typeId, type.type_name as typeName, product.icon_id as iconId, icon.small as iconSmall, icon.medium as iconMedium, icon.large as iconLarge, icon.xlarge as iconXLarge, icon.xxlarge as iconXXLarge, product.promotion_id as promotionId, promotion.promotion_name as promotionName, product.total_products as totalProducts, product.in_stock_products as inStockProducts, product.price as price FROM product LEFT JOIN product as p ON product.parent_id=p.id INNER JOIN type ON product.type_id=type.id LEFT JOIN icon ON product.icon_id=icon.id LEFT JOIN promotion ON product.promotion_id =promotion.id WHERE product.type_id=1 and product.id=#{id}")
+    Product getPrductDetail(String id);
 
     // get product with id
     @Select("select id as id,    product_name as productName, parent_id as parentId, type_id as typeId, icon_id as iconId, promotion_id as promotionId, total_products as totalProducts, in_stock_products as inStockProducts, price as price, description as description from product where id=#{id}")
     public Product getProductWithId(String id);
 
     // get product with category_id
-    @Select("select id as id,    product_name as productName, parent_id as parentId, type_id as typeId, icon_id as iconId, promotion_id as promotionId, total_products as totalProducts, in_stock_products as inStockProducts, price as price, description as description from product where type_id=#{type_id}")
-    public ArrayList<Product> getProductWithCatId(String category_id);
+    @Select("SELECT product.id as id, product.product_name as productName, product.parent_id as parentId, p.product_name as parentName, product.description as description, product.type_id as typeId, type.type_name as typeName, product.icon_id as iconId, icon.small as iconSmall, icon.medium as iconMedium, icon.large as iconLarge, icon.xlarge as iconXLarge, icon.xxlarge as iconXXLarge, product.promotion_id as promotionId, promotion.promotion_name as promotionName, product.total_products as totalProducts, product.in_stock_products as inStockProducts, product.price as price FROM product LEFT JOIN product as p ON product.parent_id=p.id INNER JOIN type ON product.type_id=type.id LEFT JOIN icon ON product.icon_id=icon.id LEFT JOIN promotion ON product.promotion_id =promotion.id WHERE product.type_id=1 and product.parent_id=#{id}")
+    public ArrayList<Product> getProductWithCatId(String id);
 
     //search product with name
     @Select("select id as id, product_name as productName, parent_id as parentId, type_id as typeId, icon_id as iconId, promotion_id as promotionId, total_products as totalProducts, in_stock_products as inStockProducts, price as price, description as description from product where product_name like '%' #{query} '%' ")
@@ -66,8 +70,10 @@ public interface ProductMapper {
     ArrayList<Product> getCategories();
 
     //get list of sub categories
-    @Select("select id as id, product_name as productName, parent_id as parentId, type_id as typeId from product where type_id=3")
-    ArrayList<Product> getSubCategories();
+    @Select("select id as id, product_name as productName, parent_id as parentId, type_id as typeId from product where parent_id=#{parent_id} and type_id=3")
+    ArrayList<Product> getSubCategories(String parent_id);
+
+
 
 
 }

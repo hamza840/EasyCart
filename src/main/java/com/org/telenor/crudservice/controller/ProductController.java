@@ -15,20 +15,27 @@ import java.util.ArrayList;
  * Rest controller for creating api for products
  */
 @RestController
+@RequestMapping(value= "/product")
 public class ProductController {
     @Resource
     ProductMapper productMapper;
 
 
-    @GetMapping("/")
+    @GetMapping(value = "/")
     public  String msg(){
         return "Hello from Product Controller";
     }
+
     @GetMapping("/getAllProducts")
     public ArrayList<Product> getAllProducts(){
 
 
         return productMapper.getAll();
+    }
+
+    @GetMapping("/getproductdetail")
+    public Product getAllProductDetail(@RequestParam("id") String id){
+        return productMapper.getPrductDetail(id);
     }
 
     /**
@@ -113,12 +120,12 @@ public class ProductController {
 
     /**
      *
-     * @param type_id will be used to find products with particular category id
+     * @param id will be used to find products with particular category id
      * @return
      */
-    @RequestMapping(value = "/getProductWithCatId",method = RequestMethod.GET)
-    public ArrayList<Product> getWithCatId(@RequestParam("type_id") String type_id){
-        return productMapper.getProductWithCatId(type_id);
+    @RequestMapping(value = "/getproductwithcatid",method = RequestMethod.GET)
+    public ArrayList<Product> getWithCatId(@RequestParam("id") String id){
+        return productMapper.getProductWithCatId(id);
     }
 
     /**
@@ -145,8 +152,8 @@ public class ProductController {
      * @return
      */
     @RequestMapping(value = "/getsubcategories",method = RequestMethod.GET)
-    public ArrayList<Product> getSubCategories(){
-        return productMapper.getSubCategories();
+    public ArrayList<Product> getSubCategories(@RequestParam("parent_id") String parent_id){
+        return productMapper.getSubCategories(parent_id);
     }
 
 
